@@ -1,6 +1,5 @@
-package coroutines
+package coroutines.chapter_3_3
 
-import coroutines.generator.generator
 import org.junit.jupiter.api.Test
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.CoroutineContext

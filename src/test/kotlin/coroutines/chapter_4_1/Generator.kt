@@ -1,6 +1,6 @@
-package coroutines.generator
+package coroutines.chapter_4_1
 
-import kotlinx.coroutines.delay
+import org.junit.jupiter.api.Test
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -90,16 +90,21 @@ fun <T> generator(block: suspend GeneratorScope<T>.(T) -> Unit): (T) -> Generato
     }
 }
 
-fun main() {
-    val nums = generator<Int> { start ->
-        for (i in 0..5) {
-            yield(start + i)
+
+class GeneratorTest {
+
+    @Test
+    fun generator_test() {
+        val nums = generator<Int> { start ->
+            for (i in 0..5) {
+                yield(start + i)
+            }
         }
-    }
 
-    val gen = nums(10)
+        val gen = nums(0)
 
-    for (j in gen) {
-        println(j)
+        for (j in gen) {
+            println(j)
+        }
     }
 }

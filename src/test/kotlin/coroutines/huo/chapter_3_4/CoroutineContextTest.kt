@@ -1,4 +1,4 @@
-package coroutines.chapter_3_4
+package coroutines.huo.chapter_3_4
 
 import kotlinx.coroutines.CoroutineName
 import org.junit.jupiter.api.Test

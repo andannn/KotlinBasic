@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import org.junit.jupiter.api.Test
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import kotlin.coroutines.suspendCoroutine
 import kotlin.test.assertEquals
 
 class ScopeTest {

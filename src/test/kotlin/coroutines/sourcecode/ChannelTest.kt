@@ -1,4 +1,4 @@
-package coroutines
+package coroutines.sourcecode
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel

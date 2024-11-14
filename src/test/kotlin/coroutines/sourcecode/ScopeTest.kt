@@ -5,12 +5,15 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -151,5 +154,29 @@ class ScopeTest {
 
         // success
         assertEquals(1, calledCount)
+    }
+
+    @Test
+    fun timeout_test() = testScope.runTest {
+        val job = launch {
+            try {
+                withTimeout(100) {
+                    delay(200)
+                }
+
+            } catch (e: TimeoutCancellationException) {
+                println("timeout")
+            }
+        }
+        job.join()
+    }
+
+    @Test
+    fun cancellation_continuation_test() = testScope.runTest {
+        suspendCancellableCoroutine { continutation ->
+            continutation.invokeOnCancellation {
+                println("cancelled")
+            }
+        }
     }
 }

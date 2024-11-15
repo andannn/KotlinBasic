@@ -23,6 +23,7 @@ class ChannelTest {
             onBufferOverflow = BufferOverflow.SUSPEND,
         )
 
+
         collectChannel(channel)
     }
 

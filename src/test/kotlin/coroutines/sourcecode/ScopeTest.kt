@@ -9,6 +9,7 @@ import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.test.TestScope
@@ -178,5 +179,22 @@ class ScopeTest {
                 println("cancelled")
             }
         }
+    }
+
+    @Test
+    fun mutable_state_flow_test() = testScope.runTest {
+        val stateFlow = MutableStateFlow(0)
+
+        val job = launch {
+            stateFlow.collect {
+                println(it)
+
+                if (it == 1) {
+                    throw IllegalStateException("some error")
+                }
+            }
+        }
+        stateFlow.value = 1
+        job.join()
     }
 }
